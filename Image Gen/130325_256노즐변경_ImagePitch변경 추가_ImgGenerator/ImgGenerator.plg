@@ -1,0 +1,105 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ImgGenerator - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x412 /fo"Debug/ImgGenerator.res" /d "_DEBUG" /d "_AFXDLL" "F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\ImgGenerator.rc"" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP40.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/ImgGenerator.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Cell.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\ChildFrm.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Dlg_AddInkPoint.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Dlg_GetaValue.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Dlg_GetImgPitch.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Dlg_GetPitch.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Dlg_Progress.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Dlg_SetGlass.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Dlg_SetJetPattern.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\Dlg_SetZoom.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\ImgGenerator.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\ImgGeneratorDoc.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\ImgGeneratorView.cpp"
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\MainFrm.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP40.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP41.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/ImgGenerator.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\POONGSAN\WORK\PROJECT\LG-PRI\INKJET 개조\IMAGEGENERATOR\081119_IMAGEPITCH변경 추가_IMGGENERATOR\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP41.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP42.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/ImgGenerator.pdb" /debug /machine:I386 /out:"Debug/ImgGenerator.exe" /pdbtype:sept 
+".\Debug\Cell.obj"
+".\Debug\ChildFrm.obj"
+".\Debug\Dlg_AddInkPoint.obj"
+".\Debug\Dlg_GetaValue.obj"
+".\Debug\Dlg_GetImgPitch.obj"
+".\Debug\Dlg_GetPitch.obj"
+".\Debug\Dlg_Progress.obj"
+".\Debug\Dlg_SetGlass.obj"
+".\Debug\Dlg_SetJetPattern.obj"
+".\Debug\Dlg_SetZoom.obj"
+".\Debug\ImgGenerator.obj"
+".\Debug\ImgGeneratorDoc.obj"
+".\Debug\ImgGeneratorView.obj"
+".\Debug\MainFrm.obj"
+".\Debug\StdAfx.obj"
+".\Debug\ImgGenerator.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP42.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Cell.cpp
+ChildFrm.cpp
+Dlg_AddInkPoint.cpp
+Dlg_GetaValue.cpp
+Dlg_GetImgPitch.cpp
+Dlg_GetPitch.cpp
+Dlg_Progress.cpp
+Dlg_SetGlass.cpp
+Dlg_SetJetPattern.cpp
+Dlg_SetZoom.cpp
+ImgGenerator.cpp
+ImgGeneratorDoc.cpp
+ImgGeneratorView.cpp
+MainFrm.cpp
+Generating Code...
+Linking...
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP44.tmp" with contents
+[
+/nologo /o"Debug/ImgGenerator.bsc" 
+".\Debug\StdAfx.sbr"
+".\Debug\Cell.sbr"
+".\Debug\ChildFrm.sbr"
+".\Debug\Dlg_AddInkPoint.sbr"
+".\Debug\Dlg_GetaValue.sbr"
+".\Debug\Dlg_GetImgPitch.sbr"
+".\Debug\Dlg_GetPitch.sbr"
+".\Debug\Dlg_Progress.sbr"
+".\Debug\Dlg_SetGlass.sbr"
+".\Debug\Dlg_SetJetPattern.sbr"
+".\Debug\Dlg_SetZoom.sbr"
+".\Debug\ImgGenerator.sbr"
+".\Debug\ImgGeneratorDoc.sbr"
+".\Debug\ImgGeneratorView.sbr"
+".\Debug\MainFrm.sbr"]
+Creating command line "bscmake.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP44.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+ImgGenerator.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

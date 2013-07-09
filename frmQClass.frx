@@ -1,0 +1,6 @@
+�1. Wiping 완료 후 Y축 Jetting시작 위치로
+2. Timer Jet >> Image(마지막Loading)
+    Timer Jet 으로 변경
+3. Ink 자동 공급은 Timer Jet 전,후에만
+   실시
+4. Jetting 구동시 불필요 구간 없이 Jetting

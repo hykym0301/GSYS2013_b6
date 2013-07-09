@@ -1,0 +1,42 @@
+##########################################################################
+######## ETG Vision System Nli File Generator v1.2 by Painkiller##########
+################ Sequence should not be changed ##########################
+##########################################################################
+
+##########################################################################
+# 1. Switch Network Information Setting ##################################
+#    - 16 bit device ID Support, 0:8bit, 1:16bit(flat), 2:16bit(hierarchy)
+16BIT	1
+
+##########################################################################
+
+##########################################################################
+# 2. PCI Express SRIO Bridge Device ID ###################################
+#    - hexadecimal value should be used(0x0000 ~ 0xffff) #################
+HOSTDEVID	0x0001
+
+###############################################################################
+# 3. Main Initialize Section ##################################################
+#    - INITLUT  LUT_DefPort HopCount   SwType   ###############################
+#    - ADDLUT   DestId      LUT_Set_Id LUT_Set_Port  HopCnt ###################
+#    - DEVIDWR  DestId      IDVal      HopCnt        Local   EndpointType######
+#    - SOFTRST 	DestID(hex) macNum(hex) hopcnt(hex) delayMs(hex) laneWid(hex)##
+#	 - PORTRST  DestId(hex) portNum(hex) hopcnt(hex)###########################
+###############################################################################
+INITLUT	0x0000	0x0		0x0000	0x2
+ADDLUT	0x0000	0x0008	0x0008	0x0000
+ADDLUT	0x0000	0x00c8	0x000c	0x0000
+ADDLUT	0x0000	0x0001	0x0000	0x0000
+ADDLUT	0x0000	0x0000	0x0008	0x0000
+SOFTRST	0x0000	0x0008	0x0000	0x64	0x4
+PORTRST	0x0000	0x0008	0x0000
+DELAYMS 0x64
+DEVIDWR	0x0000	0x0008	0x0001	0x0000	0x0005
+ADDLUT	0x0000	0x0000	0x000c	0x0000
+DEVIDWR	0x0000	0x00c8	0x0001	0x0000	0x0002
+
+##########################################################################
+# 4. Image Boot Section ##################################################
+#    - BOOTDEV  BootType    DestID     FileName ##########################
+##########################################################################
+
