@@ -6129,8 +6129,6 @@ Private Sub cmdAllAxisStop_Click()
 
 End Sub
 
-
-
 Private Sub cmdFunc_Click(Index As Integer)
 
     Select Case Index
