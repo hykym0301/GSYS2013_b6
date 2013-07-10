@@ -619,7 +619,7 @@ End Sub
 
 Private Sub cmdInitRevolver_Click()
 
-If Revolver.InitRevolver(MDI_Main.MSComm_Parker) = False Then
+If Revolver.InitRevolver(MDI_Main.MSComm_Parker, 17) = False Then
     MsgBox "Revolver ¿ÀÇÂ ½ÇÆÐ..."
 Else
     Frame3.Enabled = True

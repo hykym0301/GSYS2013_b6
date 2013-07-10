@@ -1,10 +1,10 @@
 Attribute VB_Name = "Revolver"
 
-Function InitRevolver(ByVal i_MSComm As MSComm) As Boolean
+Function InitRevolver(ByVal i_MSComm As MSComm, ByVal i_nPortNo As Integer) As Boolean
 
 On Error GoTo Err
        
-    i_MSComm.CommPort = 1
+    i_MSComm.CommPort = i_nPortNo
     i_MSComm.PortOpen = True
     
 InitRevolver = True

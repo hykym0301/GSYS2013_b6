@@ -16,6 +16,168 @@ Begin VB.Form frmVision
    ScaleMode       =   3  'ÇÈ¼¿
    ScaleWidth      =   681
    ShowInTaskbar   =   0   'False
+   Begin MIL.Digitizer Digitizer1 
+      Height          =   480
+      Left            =   7245
+      TabIndex        =   9
+      Top             =   8565
+      Visible         =   0   'False
+      Width           =   480
+      _Version        =   524288
+      _MinorStreamVersion=   14
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _StockProps     =   0
+      Name            =   "Digitizer1"
+      OwnerSystem     =   "System1"
+      Image           =   "Buf_Main"
+      DeviceNumber    =   268435456
+      _FormatNameArrayListSize=   1
+      _FormatNameArray0=   "D:\LHJ_Work\PI_Alpha_Sys\MainUI\DCFz\VCC8750A_Review.DCF"
+      _FormatArrayListSize=   1
+      _FormatArray0   =   "D:\LHJ_Work\PI_Alpha_Sys\MainUI\DCFz\VCC8750A_Review.DCF"
+      Format          =   "D:\LHJ_Work\PI_Alpha_Sys\MainUI\DCFz\VCC8750A_Review.DCF"
+      _InputRegion.SizeX=   -1  'True
+      InputRegion.SizeX=   680
+      _InputRegion.SizeY=   -1  'True
+      InputRegion.SizeY=   512
+      _InputRegion.OffsetX=   -1  'True
+      InputRegion.OffsetX=   340
+      _InputRegion.OffsetY=   -1  'True
+      InputRegion.OffsetY=   256
+      _LUT.Data       =   "frmVision.frx":0000
+   End
+   Begin MIL.GraphicContext GraphicContext1 
+      Height          =   480
+      Left            =   6765
+      TabIndex        =   8
+      Top             =   8565
+      Visible         =   0   'False
+      Width           =   480
+      _Version        =   524288
+      _MinorStreamVersion=   14
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _StockProps     =   0
+      Name            =   "GraphicContext1"
+      OwnerSystem     =   "System1"
+      Image           =   "Buf_Main"
+   End
+   Begin MIL.Image Buf_Main 
+      Height          =   480
+      Left            =   6285
+      TabIndex        =   7
+      Top             =   8565
+      Visible         =   0   'False
+      Width           =   480
+      _Version        =   524288
+      _MinorStreamVersion=   14
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _StockProps     =   0
+      Name            =   "Buf_Main"
+      OwnerSystem     =   "System1"
+      SizeX           =   680
+      SizeY           =   512
+      NumberOfBands   =   3
+      _CanDisplay     =   -1  'True
+      _CanGrab        =   -1  'True
+      _LUT.Data       =   "frmVision.frx":0132
+      GammaCorrectionExponents(2)=   0
+   End
+   Begin MIL.ApplicationDefaults ApplicationDefaults1 
+      Height          =   480
+      Left            =   5325
+      TabIndex        =   5
+      Top             =   8565
+      Visible         =   0   'False
+      Width           =   480
+      _Version        =   524288
+      _MinorStreamVersion=   14
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _StockProps     =   0
+      Name            =   "ApplicationDefaults1"
+   End
+   Begin MIL.Image Buf_Prv 
+      Height          =   480
+      Left            =   7725
+      TabIndex        =   11
+      Top             =   8550
+      Visible         =   0   'False
+      Width           =   480
+      _Version        =   524288
+      _MinorStreamVersion=   14
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _StockProps     =   0
+      Name            =   "Buf_Prv"
+      OwnerSystem     =   "System1"
+      SizeX           =   680
+      SizeY           =   512
+      NumberOfBands   =   3
+      _CanDisplay     =   -1  'True
+      _CanGrab        =   -1  'True
+      _LUT.Data       =   "frmVision.frx":0264
+      GammaCorrectionExponents(2)=   0
+   End
+   Begin MIL.Image Buf_Ptrn 
+      Height          =   480
+      Left            =   8445
+      TabIndex        =   17
+      Top             =   8580
+      Visible         =   0   'False
+      Width           =   480
+      _Version        =   524288
+      _MinorStreamVersion=   14
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _StockProps     =   0
+      Name            =   "Buf_Ptrn"
+      OwnerSystem     =   "System1"
+      SizeX           =   680
+      SizeY           =   512
+      NumberOfBands   =   3
+      _CanDisplay     =   -1  'True
+      CanDisplay      =   0   'False
+      _CanGrab        =   -1  'True
+      CanGrab         =   0   'False
+      _LUT.Data       =   "frmVision.frx":0396
+      GammaCorrectionExponents(2)=   0
+   End
+   Begin MILPATTERNMATCHINGLib.PatternMatching PatternMatching1 
+      Height          =   480
+      Left            =   8970
+      TabIndex        =   18
+      Top             =   8580
+      Visible         =   0   'False
+      Width           =   480
+      _Version        =   524288
+      _MinorStreamVersion=   14
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _StockProps     =   0
+      Name            =   "PatternMatching1"
+      OwnerSystem     =   "System1"
+      Image           =   "Buf_Ptrn"
+   End
+   Begin MIL.System System1 
+      Height          =   480
+      Left            =   5805
+      TabIndex        =   6
+      Top             =   8505
+      Visible         =   0   'False
+      Width           =   480
+      _Version        =   524288
+      _MinorStreamVersion=   14
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _StockProps     =   0
+      Name            =   "System1"
+      SystemDescriptor=   "\\.\M_SYSTEM_METEOR_II"
+      DeviceNumber    =   0
+      _SerialPorts.SerialPortCount=   1
+   End
    Begin MIL.Display Display1 
       Height          =   7680
       Left            =   15
@@ -35,8 +197,8 @@ Begin VB.Form frmVision
       _FormatArrayListSize=   0
       _OverlayKeyColor=   -1  'True
       OverlayKeyColor =   0
-      _LUT.Data       =   "frmVision.frx":0000
-      _OverlayLUT.Data=   "frmVision.frx":0132
+      _LUT.Data       =   "frmVision.frx":04C8
+      _OverlayLUT.Data=   "frmVision.frx":05FA
       Begin VB.Shape shp_RST 
          BorderColor     =   &H00C0C0C0&
          Height          =   915
@@ -202,168 +364,6 @@ Begin VB.Form frmVision
          Width           =   1050
       End
    End
-   Begin MIL.System System1 
-      Height          =   480
-      Left            =   5805
-      TabIndex        =   6
-      Top             =   8505
-      Visible         =   0   'False
-      Width           =   480
-      _Version        =   524288
-      _MinorStreamVersion=   14
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _StockProps     =   0
-      Name            =   "System1"
-      SystemDescriptor=   "\\.\M_SYSTEM_METEOR_II"
-      DeviceNumber    =   0
-      _SerialPorts.SerialPortCount=   1
-   End
-   Begin MILPATTERNMATCHINGLib.PatternMatching PatternMatching1 
-      Height          =   480
-      Left            =   8970
-      TabIndex        =   18
-      Top             =   8580
-      Visible         =   0   'False
-      Width           =   480
-      _Version        =   524288
-      _MinorStreamVersion=   14
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _StockProps     =   0
-      Name            =   "PatternMatching1"
-      OwnerSystem     =   "System1"
-      Image           =   "Buf_Ptrn"
-   End
-   Begin MIL.Image Buf_Ptrn 
-      Height          =   480
-      Left            =   8445
-      TabIndex        =   17
-      Top             =   8580
-      Visible         =   0   'False
-      Width           =   480
-      _Version        =   524288
-      _MinorStreamVersion=   14
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _StockProps     =   0
-      Name            =   "Buf_Ptrn"
-      OwnerSystem     =   "System1"
-      SizeX           =   680
-      SizeY           =   512
-      NumberOfBands   =   3
-      _CanDisplay     =   -1  'True
-      CanDisplay      =   0   'False
-      _CanGrab        =   -1  'True
-      CanGrab         =   0   'False
-      _LUT.Data       =   "frmVision.frx":0264
-      GammaCorrectionExponents(2)=   0
-   End
-   Begin MIL.Image Buf_Prv 
-      Height          =   480
-      Left            =   7725
-      TabIndex        =   11
-      Top             =   8550
-      Visible         =   0   'False
-      Width           =   480
-      _Version        =   524288
-      _MinorStreamVersion=   14
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _StockProps     =   0
-      Name            =   "Buf_Prv"
-      OwnerSystem     =   "System1"
-      SizeX           =   680
-      SizeY           =   512
-      NumberOfBands   =   3
-      _CanDisplay     =   -1  'True
-      _CanGrab        =   -1  'True
-      _LUT.Data       =   "frmVision.frx":0396
-      GammaCorrectionExponents(2)=   0
-   End
-   Begin MIL.ApplicationDefaults ApplicationDefaults1 
-      Height          =   480
-      Left            =   5325
-      TabIndex        =   5
-      Top             =   8565
-      Visible         =   0   'False
-      Width           =   480
-      _Version        =   524288
-      _MinorStreamVersion=   14
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _StockProps     =   0
-      Name            =   "ApplicationDefaults1"
-   End
-   Begin MIL.Image Buf_Main 
-      Height          =   480
-      Left            =   6285
-      TabIndex        =   7
-      Top             =   8565
-      Visible         =   0   'False
-      Width           =   480
-      _Version        =   524288
-      _MinorStreamVersion=   14
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _StockProps     =   0
-      Name            =   "Buf_Main"
-      OwnerSystem     =   "System1"
-      SizeX           =   680
-      SizeY           =   512
-      NumberOfBands   =   3
-      _CanDisplay     =   -1  'True
-      _CanGrab        =   -1  'True
-      _LUT.Data       =   "frmVision.frx":04C8
-      GammaCorrectionExponents(2)=   0
-   End
-   Begin MIL.GraphicContext GraphicContext1 
-      Height          =   480
-      Left            =   6765
-      TabIndex        =   8
-      Top             =   8565
-      Visible         =   0   'False
-      Width           =   480
-      _Version        =   524288
-      _MinorStreamVersion=   14
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _StockProps     =   0
-      Name            =   "GraphicContext1"
-      OwnerSystem     =   "System1"
-      Image           =   "Buf_Main"
-   End
-   Begin MIL.Digitizer Digitizer1 
-      Height          =   480
-      Left            =   7245
-      TabIndex        =   9
-      Top             =   8565
-      Visible         =   0   'False
-      Width           =   480
-      _Version        =   524288
-      _MinorStreamVersion=   14
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _StockProps     =   0
-      Name            =   "Digitizer1"
-      OwnerSystem     =   "System1"
-      Image           =   "Buf_Main"
-      DeviceNumber    =   268435456
-      _FormatNameArrayListSize=   1
-      _FormatNameArray0=   "D:\LHJ_Work\PI_Alpha_Sys\MainUI\DCFz\VCC8750A_Review.DCF"
-      _FormatArrayListSize=   1
-      _FormatArray0   =   "D:\LHJ_Work\PI_Alpha_Sys\MainUI\DCFz\VCC8750A_Review.DCF"
-      Format          =   "D:\LHJ_Work\PI_Alpha_Sys\MainUI\DCFz\VCC8750A_Review.DCF"
-      _InputRegion.SizeX=   -1  'True
-      InputRegion.SizeX=   680
-      _InputRegion.SizeY=   -1  'True
-      InputRegion.SizeY=   512
-      _InputRegion.OffsetX=   -1  'True
-      InputRegion.OffsetX=   340
-      _InputRegion.OffsetY=   -1  'True
-      InputRegion.OffsetY=   256
-      _LUT.Data       =   "frmVision.frx":05FA
-   End
    Begin VB.Frame Frame1 
       Height          =   375
       Left            =   75
@@ -435,7 +435,7 @@ Begin VB.Form frmVision
       Caption         =   "Cursor Draw"
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "±¼¸²"
-         Size            =   9.76
+         Size            =   9.75
          Charset         =   129
          Weight          =   400
          Underline       =   0   'False
@@ -552,7 +552,7 @@ Begin VB.Form frmVision
       Caption         =   "Ruler Draw"
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "±¼¸²"
-         Size            =   9.76
+         Size            =   9.75
          Charset         =   129
          Weight          =   400
          Underline       =   0   'False

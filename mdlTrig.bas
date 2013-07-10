@@ -834,12 +834,13 @@ On Error GoTo syserr
     fbyteSendBuf(8) = Val("&H" & Mid(fstrARM_Adr(i_nARMAddress), 3, 2))
     fbyteSendBuf(9) = Val("&H" & Mid(fstrARM_Adr(i_nARMAddress), 1, 2))
 
+
     'Data Value
     fbyteSendBuf(10) = Val("&H" & Mid(strValue, 7, 2))
     fbyteSendBuf(11) = Val("&H" & Mid(strValue, 5, 2))
     fbyteSendBuf(12) = Val("&H" & Mid(strValue, 3, 2))
     fbyteSendBuf(13) = Val("&H" & Mid(strValue, 1, 2))
-
+    
     'Checksum-------------------
     fbyteSendBuf(14) = CheckSum(fbyteSendBuf)
     'Checksum-------------------
@@ -1400,7 +1401,10 @@ On Error GoTo syserr
         Exit Function
     End If
     
-    StartIntTrigger = SendRegistry(nCmdAdr, ipDotCounts)
+    'StartIntTrigger = SendRegistry(nCmdAdr, ipDotCounts)
+    
+    dStartValue = Val("&HFFFFFFFF")
+    StartIntTrigger = SendRegistry(nCmdAdr, dStartValue)
 Exit Function
 syserr:
     StartIntTrigger = False
@@ -1515,9 +1519,10 @@ Public Function SetExtPulseWidth(ByVal i_nChannel As eCHANNEL, ByVal ipOnTime_se
 
     If ipOnTime_sec <> 0 Then
         w_data# = ((ipOnTime_sec * 10 ^ 9) / 10) - 1
-        SetIntPulseWidth = SendRegistry(nCmdAdr, 300)
+        'SetIntPulseWidth = SendRegistry(nCmdAdr, 300)
+        SetExtPulseWidth = SendRegistry(nCmdAdr, w_data#)
     Else
-        SetIntPulseWidth = SendRegistry(nCmdAdr, 0)
+        SetExtPulseWidth = SendRegistry(nCmdAdr, 0)
     End If
     
     Exit Function
@@ -1606,11 +1611,13 @@ On Error GoTo syserr
     
     lngCount = CountToBrightVal(i_dStrobeBrightValue)
     
-    If lngCount <= 1024 Then
-        SetStrobeBrightValue = SendRegistry(nCmdAdr, 0)
-    Else
-        SetStrobeBrightValue = SendRegistry(nCmdAdr, lngCount)
-    End If
+'    If lngCount <= 1024 Then
+'        SetStrobeBrightValue = SendRegistry(nCmdAdr, 0)
+'    Else
+'        SetStrobeBrightValue = SendRegistry(nCmdAdr, lngCount)
+'    End If
+    
+    SetStrobeBrightValue = SendRegistry(nCmdAdr, lngCount)
     
 Exit Function
 syserr:
@@ -1931,7 +1938,9 @@ Public Function CountToUm(ipChNo As Integer, ByVal i_dPosMm As Double) As Double
     ' 1um -> 2.5 count
     
     dUm = i_dPosMm * (10 ^ 3)
-    dCount = dUm / fdCountPerUm(ipChNo)
+    
+    dDivide# = fdCountPerUm(ipChNo) / 4
+    dCount = dUm / dDivide# 'fdCountPerUm(ipChNo)
     CountToUm = dCount
     
 Exit Function
@@ -1947,12 +1956,12 @@ Public Function CountToBrightVal(ByVal i_nValue As Integer) As Long
     Dim lngMinValue As Long
     Dim lngRange As Long
     
-    'lngMinValue = &H400
-    'lngMaxValue = &HFFF
-    
-    'lngRange = lngMaxValue - lngMinValue
-    
-    'CountToBrightVal = ((lngRange / 100) * i_nValue) + lngMinValue
+'    lngMinValue = &H400
+'    lngMaxValue = &HFFF
+'
+'    lngRange = lngMaxValue - lngMinValue
+'
+'    CountToBrightVal = ((lngRange / 100) * i_nValue) + lngMinValue
     
     CountToBrightVal = i_nValue
     

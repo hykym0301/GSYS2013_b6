@@ -111,7 +111,8 @@ Sub Main()
     'PComm32_Init False
     'Motion관련 변수 Loading
     
-    If mdlTrig.Connect(MDI_Main.WinsockTrig, "192.168.10.253", 1253) = False Then
+    ' mdlTrig.Connect(MDI_Main.WinsockTrig, "192.168.10.254", 1254) = False Then
+    If mdlTrig.Connect(MDI_Main.WinsockTrig, "192.168.10.254", 1025) = False Then
         MsgBox "Fail TriggerBoard connection."
     End If
     
@@ -137,8 +138,8 @@ Sub Main()
     End If
     
     If fl_Debugging = False Then
-        Call Revolver.InitRevolver(MDI_Main.MSComm_Parker)
-        Call Revolver.SelectLens(MDI_Main.MSComm_Parker, 4) '// 1 is x2.
+        Call Revolver.InitRevolver(MDI_Main.MSComm_Parker, 7)
+        Call Revolver.SelectLens(MDI_Main.MSComm_Parker, 1) '// 1 is x2.
     End If
     
 '    If fl_Debugging = False Then

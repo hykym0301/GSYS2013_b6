@@ -581,9 +581,21 @@ Private Sub chkRunStrobeMode_Click()
 On Error GoTo syserr
     
     iindex% = 0
-    If mdlTrig.StartIntTrigger(iindex%, Me.chkRunStrobeMode.Value) = False Then
-        MsgBox "Fail", vbCritical
+    
+    If chkRunStrobeMode.Value = 1 Then
+        If mdlTrig.StartIntTrigger(iindex%, Me.chkRunStrobeMode.Value) = False Then
+            MsgBox "Fail", vbCritical
+        End If
+        
+        If mdlTrig.SetStrobeMode(iindex%, 1) = False Then
+                MsgBox "Fail", vbCritical
+        End If
+    Else
+        If mdlTrig.SetStrobeMode(iindex%, 0) = False Then
+                MsgBox "Fail", vbCritical
+        End If
     End If
+    
     
 Exit Sub
 syserr:
@@ -601,6 +613,12 @@ Private Sub cmdSetStrobePara_Click()
 On Error GoTo syserr
     
     iindex% = 0
+    
+    If mdlTrig.SetExtPulseWidth(iindex%, CDbl(Me.txtStrobeOnWidth_us.Text)) = False Then
+        MsgBox "Fail", vbCritical
+        Exit Sub
+    End If
+    
     If mdlTrig.ConfigStrobePara(iindex%, _
                                 CDbl(Me.txtStrobeFreq_khz.Text), _
                                 CDbl(Me.txtStrobeOnWidth_us.Text), _
@@ -641,7 +659,8 @@ Private Sub cmdStartDot_Click()
                                  
     mdlTrig.SetFireRevStartPosition iindex%, CDbl(Me.txtEp.Text)
     mdlTrig.SetFireRevEndPosition iindex%, CDbl(Me.txtSP.Text)
-                                 
+    
+    Call mdlTrig.SetTrigMode(iindex%, 1)    '// 꼭 1로 세팅
     Call mdlTrig.StartExtTrigger(iindex%)
 
 End Sub
@@ -725,7 +744,7 @@ Private Sub Timer1_Timer()
 '        End If
         
         Me.listResponse.Clear
-        Call Me.listResponse.AddItem("Enc Trigger mode = " & CStr(mdlTrig.GetRegistry(ENC_DIR_REG)))
+        Call Me.listResponse.AddItem("Enc Trigger mode = " & CStr(mdlTrig.GetRegistry(TRIG_Mode1)))
         Call Me.listResponse.AddItem("Start position1 = " & CStr(mdlTrig.GetRegistry(ENC_START_POS_REG1)))
         Call Me.listResponse.AddItem("Accel position1 = " & CStr(mdlTrig.GetRegistry(ENC_INC_END_POS_REG1)))
         Call Me.listResponse.AddItem("End position1 = " & CStr(mdlTrig.GetRegistry(ENC_STOP_POS_REG1)))
