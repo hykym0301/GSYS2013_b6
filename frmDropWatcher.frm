@@ -15,6 +15,17 @@ Begin VB.Form frmDropWatcher
    ScaleHeight     =   11565
    ScaleWidth      =   17655
    StartUpPosition =   2  '화면 가운데
+   Begin VB.CommandButton cmdFunc 
+      Caption         =   "Cam설정"
+      Height          =   600
+      Index           =   7
+      Left            =   15570
+      Picture         =   "frmDropWatcher.frx":058A
+      Style           =   1  '그래픽
+      TabIndex        =   25
+      Top             =   5145
+      Width           =   1815
+   End
    Begin VB.Frame Frame5 
       Caption         =   "Control"
       Height          =   1680
@@ -27,7 +38,7 @@ Begin VB.Form frmDropWatcher
          Height          =   600
          Index           =   0
          Left            =   120
-         Picture         =   "frmDropWatcher.frx":058A
+         Picture         =   "frmDropWatcher.frx":0B14
          Style           =   1  '그래픽
          TabIndex        =   22
          Top             =   300
@@ -38,7 +49,7 @@ Begin VB.Form frmDropWatcher
          Height          =   600
          Index           =   1
          Left            =   135
-         Picture         =   "frmDropWatcher.frx":0B14
+         Picture         =   "frmDropWatcher.frx":109E
          Style           =   1  '그래픽
          TabIndex        =   21
          Top             =   945
@@ -65,7 +76,7 @@ Begin VB.Form frmDropWatcher
          Height          =   600
          Index           =   6
          Left            =   120
-         Picture         =   "frmDropWatcher.frx":109E
+         Picture         =   "frmDropWatcher.frx":1628
          Style           =   1  '그래픽
          TabIndex        =   19
          Top             =   210
@@ -93,7 +104,7 @@ Begin VB.Form frmDropWatcher
          Height          =   600
          Index           =   2
          Left            =   120
-         Picture         =   "frmDropWatcher.frx":1628
+         Picture         =   "frmDropWatcher.frx":1BB2
          Style           =   1  '그래픽
          TabIndex        =   17
          Top             =   300
@@ -113,7 +124,7 @@ Begin VB.Form frmDropWatcher
          Height          =   600
          Index           =   3
          Left            =   120
-         Picture         =   "frmDropWatcher.frx":1BB2
+         Picture         =   "frmDropWatcher.frx":213C
          Style           =   1  '그래픽
          TabIndex        =   16
          Top             =   945
@@ -133,7 +144,7 @@ Begin VB.Form frmDropWatcher
          Height          =   600
          Index           =   4
          Left            =   120
-         Picture         =   "frmDropWatcher.frx":213C
+         Picture         =   "frmDropWatcher.frx":26C6
          Style           =   1  '그래픽
          TabIndex        =   15
          Top             =   1590
@@ -153,7 +164,7 @@ Begin VB.Form frmDropWatcher
          Height          =   600
          Index           =   5
          Left            =   120
-         Picture         =   "frmDropWatcher.frx":26C6
+         Picture         =   "frmDropWatcher.frx":2C50
          Style           =   1  '그래픽
          TabIndex        =   14
          Top             =   2220
@@ -266,7 +277,7 @@ Begin VB.Form frmDropWatcher
          Strikethrough   =   0   'False
       EndProperty
       Height          =   11520
-      Left            =   0
+      Left            =   15
       ScaleHeight     =   764
       ScaleMode       =   3  '픽셀
       ScaleWidth      =   1020
@@ -376,7 +387,7 @@ Begin VB.Form frmDropWatcher
          Left            =   0
          ScaleHeight     =   405
          ScaleWidth      =   555
-         TabIndex        =   25
+         TabIndex        =   24
          Top             =   0
          Visible         =   0   'False
          Width           =   615
@@ -386,18 +397,10 @@ Begin VB.Form frmDropWatcher
          Left            =   1110
          ScaleHeight     =   405
          ScaleWidth      =   555
-         TabIndex        =   24
+         TabIndex        =   23
          Top             =   3945
          Visible         =   0   'False
          Width           =   615
-      End
-      Begin VB.Label Label5 
-         Caption         =   "Label5"
-         Height          =   495
-         Left            =   1545
-         TabIndex        =   23
-         Top             =   8205
-         Width           =   2550
       End
       Begin VB.Label lblCamInfo 
          Alignment       =   2  '가운데 맞춤
@@ -465,9 +468,13 @@ Select Case Index
     Case 2 ' save
     Case 3 ' open
     Case 4 ' live
+        Call Live
     Case 5 ' stop
+        Call Halt
     Case 6 ' exit
         Unload Me
+    Case 7 ' Cam 설정
+        AD.ShowProperties
 End Select
 Exit Sub
 syserr:
@@ -504,6 +511,17 @@ On Error GoTo syserr:
     AD.Rate = 15
     'AD.Flip = fnFlipType
     AD.Acquire = True
+    
+    Call Config
+Exit Sub
+syserr:
+    MsgBox Err.Description
+End Sub
+
+Private Sub Config()
+On Error GoTo syserr:
+    AD.ShutterControl = 1
+    AD.GainControl = 1
 Exit Sub
 syserr:
     MsgBox Err.Description

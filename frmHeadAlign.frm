@@ -28,15 +28,15 @@ Begin VB.Form frmHeadAlign
       _StockProps     =   1
       Name            =   "Display1"
       OwnerSystem     =   "System2"
-      Image           =   "Image2"
+      Image           =   "Image3"
       _FormatArrayListSize=   0
       _LUT.Data       =   "frmHeadAlign.frx":058A
       _OverlayLUT.Data=   "frmHeadAlign.frx":06BC
-      Begin MIL.System System2 
+      Begin MIL.Image Image3 
          Height          =   480
-         Left            =   7995
-         TabIndex        =   1
-         Top             =   6615
+         Left            =   8520
+         TabIndex        =   17
+         Top             =   5850
          Visible         =   0   'False
          Width           =   480
          _Version        =   524288
@@ -44,16 +44,16 @@ Begin VB.Form frmHeadAlign
          _ExtentX        =   847
          _ExtentY        =   847
          _StockProps     =   0
-         Name            =   "System2"
-         SystemDescriptor=   "\\.\M_SYSTEM_METEOR_II"
-         DeviceNumber    =   1
-         _SerialPorts.SerialPortCount=   1
+         Name            =   "Image3"
+         ParentImage     =   "Image1"
+         Band            =   8192
+         GammaCorrectionExponents(2)=   0
       End
-      Begin MIL.Image Image1 
+      Begin MIL.Image Image2 
          Height          =   480
-         Left            =   8505
-         TabIndex        =   2
-         Top             =   6600
+         Left            =   8025
+         TabIndex        =   16
+         Top             =   5850
          Visible         =   0   'False
          Width           =   480
          _Version        =   524288
@@ -61,14 +61,9 @@ Begin VB.Form frmHeadAlign
          _ExtentX        =   847
          _ExtentY        =   847
          _StockProps     =   0
-         Name            =   "Image1"
-         OwnerSystem     =   "System2"
-         SizeX           =   640
-         SizeY           =   480
-         NumberOfBands   =   3
-         _CanDisplay     =   -1  'True
-         CanGrab         =   -1  'True
-         _LUT.Data       =   "frmHeadAlign.frx":07EE
+         Name            =   "Image2"
+         ParentImage     =   "Image1"
+         Band            =   4096
          GammaCorrectionExponents(2)=   0
       End
       Begin MIL.Digitizer Digitizer1 
@@ -90,13 +85,35 @@ Begin VB.Form frmHeadAlign
          _FormatNameArrayListSize=   0
          _FormatArrayListSize=   0
          Format          =   "RS170"
+         _LUT.Data       =   "frmHeadAlign.frx":07EE
+      End
+      Begin MIL.Image Image1 
+         Height          =   480
+         Left            =   8505
+         TabIndex        =   2
+         Top             =   6600
+         Visible         =   0   'False
+         Width           =   480
+         _Version        =   524288
+         _MinorStreamVersion=   14
+         _ExtentX        =   847
+         _ExtentY        =   847
+         _StockProps     =   0
+         Name            =   "Image1"
+         OwnerSystem     =   "System2"
+         SizeX           =   640
+         SizeY           =   480
+         NumberOfBands   =   3
+         _CanDisplay     =   -1  'True
+         CanGrab         =   -1  'True
          _LUT.Data       =   "frmHeadAlign.frx":0920
+         GammaCorrectionExponents(2)=   0
       End
-      Begin MIL.Image Image2 
+      Begin MIL.System System2 
          Height          =   480
-         Left            =   8025
-         TabIndex        =   16
-         Top             =   5850
+         Left            =   7995
+         TabIndex        =   1
+         Top             =   6615
          Visible         =   0   'False
          Width           =   480
          _Version        =   524288
@@ -104,27 +121,10 @@ Begin VB.Form frmHeadAlign
          _ExtentX        =   847
          _ExtentY        =   847
          _StockProps     =   0
-         Name            =   "Image2"
-         ParentImage     =   "Image1"
-         Band            =   4096
-         GammaCorrectionExponents(2)=   0
-      End
-      Begin MIL.Image Image3 
-         Height          =   480
-         Left            =   8520
-         TabIndex        =   17
-         Top             =   5850
-         Visible         =   0   'False
-         Width           =   480
-         _Version        =   524288
-         _MinorStreamVersion=   14
-         _ExtentX        =   847
-         _ExtentY        =   847
-         _StockProps     =   0
-         Name            =   "Image3"
-         ParentImage     =   "Image1"
-         Band            =   8192
-         GammaCorrectionExponents(2)=   0
+         Name            =   "System2"
+         SystemDescriptor=   "\\.\M_SYSTEM_METEOR_II"
+         DeviceNumber    =   1
+         _SerialPorts.SerialPortCount=   1
       End
       Begin VB.Line Line2 
          BorderColor     =   &H00FF0000&
@@ -545,6 +545,7 @@ End Sub
 
 Private Sub Form_Load()
 On Error GoTo syserr:
+    
 Exit Sub
 syserr:
     MsgBox Err.Description

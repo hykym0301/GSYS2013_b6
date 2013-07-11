@@ -6,6 +6,46 @@
 --------------------Configuration: PRI_HeadIF - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26B.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\InkJet\InkJet_Base.h" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/PRI_HeadIF.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\LHJ_Work\PI_Alpha_Sys\MainUI\PRI_HeadIF\ManageInkJet_KM.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26B.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26C.tmp" with contents
+[
+InkJet_Dll.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/PRI_HeadIF.pdb" /debug /machine:I386 /out:"Debug/PRI_HeadIF.exe" /pdbtype:sept /libpath:".\InkJet" 
+.\Debug\Manage_File.obj
+.\Debug\Manage_Img.obj
+.\Debug\Manage_Reg.obj
+.\Debug\ManageInkJet.obj
+.\Debug\ManageInkJet_KM.obj
+.\Debug\PRI_HeadIF.obj
+.\Debug\PRI_HeadIFDlg.obj
+.\Debug\StdAfx.obj
+.\Debug\SystemTray.obj
+.\Debug\PRI_HeadIF.res
+]
+Creating command line "link.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26C.tmp"
+<h3>Output Window</h3>
+Compiling...
+ManageInkJet_KM.cpp
+Linking...
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26D.tmp" with contents
+[
+/nologo /o"Debug/PRI_HeadIF.bsc" 
+.\Debug\StdAfx.sbr
+.\Debug\Manage_File.sbr
+.\Debug\Manage_Img.sbr
+.\Debug\Manage_Reg.sbr
+.\Debug\ManageInkJet.sbr
+.\Debug\ManageInkJet_KM.sbr
+.\Debug\PRI_HeadIF.sbr
+.\Debug\PRI_HeadIFDlg.sbr
+.\Debug\SystemTray.sbr]
+Creating command line "bscmake.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26D.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 

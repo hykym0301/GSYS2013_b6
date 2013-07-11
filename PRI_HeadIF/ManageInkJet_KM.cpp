@@ -21,11 +21,6 @@ static char THIS_FILE[]=__FILE__;
 CManageInkJet_KM::CManageInkJet_KM()
 {
 	m_hDll=NULL;
-// 	if (LoadFunction()==FALSE) AfxMessageBox("Fail dll Loading...");
-// 	else 
-// 		AfxMessageBox("Success dll Loading...");
-// 
-// 	IJCS_Open();
 }
 
 CManageInkJet_KM::~CManageInkJet_KM()
@@ -94,10 +89,14 @@ BOOL CManageInkJet_KM::LoadFunction()
 
 BOOL CManageInkJet_KM::IJCS_Open()
 {
+	if (LoadFunction()==FALSE){
+		return FALSE;
+	}
+
 	if(m_hDll==NULL){
 		return FALSE;
 	}
-	BOOL ok;
+	BOOL ok;		
 	ok = DLL_Open();
 	return ok;
 }
@@ -110,6 +109,16 @@ BOOL CManageInkJet_KM::IJCS_Close()
 	}
 	FreeLibrary(m_hDll);
 	m_hDll = NULL;
+	return ok;
+}
+
+BOOL CManageInkJet_KM::IJCS_Reset()
+{
+	if(m_hDll==NULL){
+		return FALSE;
+	}
+	BOOL ok;
+	ok = DLL_Reset();
 	return ok;
 }
 
@@ -158,7 +167,18 @@ BOOL CManageInkJet_KM::Initialize()
 	BOOL ok;
 	DWORD err=0;
 	
-
+	if(m_hDll!=NULL){
+		ok = IJCS_Close();
+		if (ok==FALSE){
+			return FALSE;
+		}
+	}
+	
+	ok = IJCS_Open();
+	if (ok==FALSE){
+		return FALSE;
+	}
+	
 	struct ijcs_status km_status;
 	ok = IJCS_GetStatus(0,&km_status,sizeof(km_status));
 	if(ok==FALSE){
@@ -166,9 +186,6 @@ BOOL CManageInkJet_KM::Initialize()
 		printf("Error auto Trigger! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_AUTO_TRIGER, err);
 		return FALSE;
 	}
-
-
-
 
 	// Auto trigger repeat
 	struct st_cmd_set_auto_trigger auto_trigger;
@@ -203,8 +220,7 @@ BOOL CManageInkJet_KM::Initialize()
 	//Set scan trigger
 	struct st_trigger_select trigger_sel;
 	trigger_sel.trigger = 1;	//0 : 외부 트리거 상승 에지, 1 : 외부 트리거 하강 에지, 2 : 위상 계수 카운터 트리거
-	trigger_sel.mode = 0;		//0 : 원샷, 1 : 자동 트리거 - TBD
-	//ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_TRIGGER, (BYTE *)&trigger_sel, sizeof(trigger_sel));
+	trigger_sel.mode = 0;		//0 : 원샷, 1 : 자동 트리거 - TBD	
 	ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_TRIGGER, (BYTE *)&trigger_sel, sizeof(trigger_sel));
 	if(ok==FALSE){
 		err = IJCS_GetErrorCode();

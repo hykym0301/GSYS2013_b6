@@ -65,6 +65,7 @@ public:
 		
 // Operate
 public:
+	void ExecuteKM(int nCmdNo);
 	BOOL Read_SysData();
 	void Execute(int nCmdNo);
 	void Clear_Var();

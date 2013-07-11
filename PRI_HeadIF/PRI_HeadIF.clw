@@ -15,8 +15,8 @@ Class3=CPRI_HeadIFDlg
 Class4=CSystemTray
 
 ResourceCount=3
-Resource1=IDD_ABOUTBOX (German (Germany))
-Resource2=IDR_MENU
+Resource1=IDR_MENU
+Resource2=IDD_ABOUTBOX (German (Germany))
 Resource3=IDD_PRI_HEADIF_DIALOG (German (Germany))
 
 [CLS:CPRI_HeadIFApp]
@@ -66,8 +66,8 @@ Control4=IDC_STC_LIVE,static,1342308865
 Control5=IDC_BTN_SAVE,button,1073807360
 Control6=IDC_STATIC,static,1342308352
 Control7=IDC_BTN_TEST,button,1073807360
-Control8=IDC_STATIC,static,1342308352
-Control9=IDC_BTN_INIT_KM,button,1342242816
+Control8=IDC_STATIC_TITLE,static,1342308352
+Control9=IDC_BTN_INIT_KM,button,1208025088
 Control10=IDC_STATIC,button,1342177287
 
 [MNU:IDR_MENU]

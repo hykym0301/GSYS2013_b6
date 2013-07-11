@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "Tabctl32.ocx"
 Begin VB.Form frmSetup_KM_IJCS 
    Caption         =   "IJCS-1 - System Parameter"
    ClientHeight    =   5970
@@ -57,34 +57,47 @@ Begin VB.Form frmSetup_KM_IJCS
       TabPicture(2)   =   "frmSetup_KM_IJCS.frx":0038
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "Label21"
-      Tab(2).Control(1)=   "Frame7"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "Frame9"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "Frame8"
-      Tab(2).Control(3)=   "Frame9"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "Frame7"
+      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Phase Z setup:"
       TabPicture(3)   =   "frmSetup_KM_IJCS.frx":0054
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Frame11"
+      Tab(3).Control(0).Enabled=   0   'False
       Tab(3).Control(1)=   "Frame10"
+      Tab(3).Control(1).Enabled=   0   'False
       Tab(3).ControlCount=   2
       TabCaption(4)   =   "External I/O setup"
       TabPicture(4)   =   "frmSetup_KM_IJCS.frx":0070
       Tab(4).ControlEnabled=   0   'False
       Tab(4).Control(0)=   "Frame14"
+      Tab(4).Control(0).Enabled=   0   'False
       Tab(4).Control(1)=   "Frame13"
+      Tab(4).Control(1).Enabled=   0   'False
       Tab(4).Control(2)=   "Frame12"
+      Tab(4).Control(2).Enabled=   0   'False
       Tab(4).ControlCount=   3
       TabCaption(5)   =   "Scan mode setup"
       TabPicture(5)   =   "frmSetup_KM_IJCS.frx":008C
       Tab(5).ControlEnabled=   0   'False
       Tab(5).Control(0)=   "Frame16"
+      Tab(5).Control(0).Enabled=   0   'False
       Tab(5).Control(1)=   "Frame15"
+      Tab(5).Control(1).Enabled=   0   'False
       Tab(5).ControlCount=   2
       TabCaption(6)   =   "Management tool"
       TabPicture(6)   =   "frmSetup_KM_IJCS.frx":00A8
       Tab(6).ControlEnabled=   0   'False
       Tab(6).Control(0)=   "Frame18"
+      Tab(6).Control(0).Enabled=   0   'False
       Tab(6).Control(1)=   "Frame17"
+      Tab(6).Control(1).Enabled=   0   'False
       Tab(6).ControlCount=   2
       Begin VB.Frame Frame1 
          Caption         =   "Scan Trigger"

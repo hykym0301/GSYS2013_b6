@@ -22,6 +22,7 @@
 #define IDC_BTN_INIT_KM                 1008
 #define IDC_BTN_SEND_DATA               1009
 #define IDC_LIST_MSG2                   1009
+#define IDC_STATIC_TITLE                1009
 #define IDR_SHOW                        32777
 #define IDR_HIDE                        32778
 #define IDR_RUN                         32779
@@ -34,7 +35,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        135
 #define _APS_NEXT_COMMAND_VALUE         32782
-#define _APS_NEXT_CONTROL_VALUE         1009
+#define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

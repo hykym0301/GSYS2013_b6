@@ -137,21 +137,25 @@ BOOL CPRI_HeadIFDlg::OnInitDialog()
 	m_Ink.Set_ParentPoint(GetSafeHwnd());	
 
 	char cMsg[256];
+	char sTitle[256];
+
 	memset(cMsg,'\0',sizeof(char)*256);
-	
+	memset(sTitle,'\0',sizeof(char)*256);
 	m_Reg.SHRegReadString(HKEY_CURRENT_USER,_HEADCTRL_TYPE,__RND_HEADCTRL,"0",cMsg,256);
 	
 	if (atoi(cMsg) == 0)
-		m_CtrlType = nKM;
-	else
-		m_CtrlType = nLG_Q;
-	
-	if ( m_CtrlType== nKM )
 	{
+		m_CtrlType = nKM;
 		m_km = new CManageInkJet_KM();
-		m_km->LoadFunction();
-		m_km->IJCS_Open();
+		sprintf(sTitle,"Poongsan System - Head I/F Program( KM )");
 	}
+	else
+	{
+		m_CtrlType = nLG_Q;
+		sprintf(sTitle,"Poongsan System - Head I/F Program( PRI )");
+	}
+
+	SetDlgItemText(IDC_STATIC_TITLE,sTitle);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -242,24 +246,22 @@ void CPRI_HeadIFDlg::OnTimer(UINT nIDEvent)
 	}
 	
 	SetDlgItemText(IDC_STC_LIVE,sData);
+	m_Reg.SHRegReadString(HKEY_CURRENT_USER,_RECEIVE,__RND_CMDNO,"0",cRndBuf,100);
 
-	if (m_CtrlType == nLG_Q )
+	// Registry입력 명령어 번호
+	m_nCmdSetNo = atoi(cRndBuf);
+
+	// 입력데이타를 이전 명령과 비교하여 중복명령은 삭제한다.
+	if(m_nCmdPrevNo != m_nCmdSetNo)
 	{
-		m_Reg.SHRegReadString(HKEY_CURRENT_USER,_RECEIVE,__RND_CMDNO,"0",cRndBuf,100);
-
-		// Registry입력 명령어 번호
-		m_nCmdSetNo = atoi(cRndBuf);
-		
-		// 입력데이타를 이전 명령과 비교하여 중복명령은 삭제한다.
-		if(m_nCmdPrevNo != m_nCmdSetNo)
-		{
-			Execute(m_nCmdSetNo);		
-			m_nCmdPrevNo = m_nCmdSetNo;
-		}	
-	} else {
-		
+		if (m_CtrlType == nLG_Q )
+		{		
+			Execute(m_nCmdSetNo);	
+		} else {			
+			ExecuteKM(m_nCmdSetNo);	
+		}
+		m_nCmdPrevNo = m_nCmdSetNo;
 	}
-		
 	
 	CDialog::OnTimer(nIDEvent);
 }
@@ -1127,22 +1129,12 @@ void CPRI_HeadIFDlg::SendImgLine(double dImgLine)
 void CPRI_HeadIFDlg::OnBtnBoot() 
 {
 	// TODO: Add your control notification handler code here
-	CString strMsg;
-	CString strLib;
-	BOOL bRtn;
 	
-	bRtn = FALSE;
-	//bRtn = m_Ink.Boot(m_JetDB,strMsg,strLib);
-	
-	Execute(EXE_BOOT);
-
-	if (bRtn == FALSE)
-	{
-		DispMsg(strMsg);
-	}
-	else
-	{
-		DispMsg("Head Initial OK!");
+	if (m_CtrlType == nLG_Q )
+	{	
+		Execute(EXE_BOOT);		
+	} else {	
+		ExecuteKM(EXE_KM_BOOT);		
 	}
 }
 
@@ -1384,5 +1376,246 @@ BOOL CPRI_HeadIFDlg::Read_SysData()
 void CPRI_HeadIFDlg::OnBtnInitKm() 
 {
 	// TODO: Add your control notification handler code here	
-	m_km->Initialize();			
+			
+}
+
+void CPRI_HeadIFDlg::ExecuteKM(int nCmdNo)
+{
+	CString strMsg;
+	CString strLib;
+	CString strWMsg;
+	char cDBPath [256];
+	char cMsg[256];
+	char szFilePath[1024];
+	BOOL bRtn;
+	int nHeadNo = 0;
+
+	memset(cDBPath,'\0',sizeof(char)*256);
+	memset(cMsg,'\0',sizeof(char)*256);	
+	memset(szFilePath,'\0',sizeof(szFilePath));
+	memset(m_cMsg,'\0',sizeof(m_cMsg));
+
+	//System Registry Reading부 
+	Read_SysData();
+
+	switch(nCmdNo) 
+	{
+		case NONE_CMD:
+			break;
+
+		case HIDE_TRAYICON:
+			SendJudge(JUDGEING);
+			m_TrayIcon.HideIcon();
+			SendJudge(JUDGEOK);
+			break;
+		
+		case EXE_KM_BOOT:
+			
+			bRtn = m_km->Initialize();
+
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,strLib);
+				DispMsg(strMsg);
+			}
+			else
+			{
+				SendJudge(JUDGEOK);
+				DispMsg("KM Init OK OK!");
+			}
+
+			break;
+
+		case EXE_KM_CLOSE:
+			
+			SendJudge(JUDGEING);
+			
+			bRtn = m_km->IJCS_Close();
+
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,strLib);
+				DispMsg(strMsg);
+			}
+			else
+			{
+				SendJudge(JUDGEOK);
+				DispMsg("Base Board Initial OK!");
+			}
+			
+			break;
+
+		case EXE_KM_RESET:
+
+			SendJudge(JUDGEING);
+			bRtn = m_km->IJCS_Reset();
+
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,strLib);
+				DispMsg(strMsg);
+			}
+			else
+			{
+				SendJudge(JUDGEOK);
+				DispMsg("Base Board Close OK!");
+			}
+
+			break;
+		
+		case SET_KM_IMAGEDATA:
+			
+			SendJudge(JUDGEING);
+			
+			bRtn = m_km->SendImageData();
+			
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"Error Reset_TriggerPos.");
+				DispMsg(strMsg);
+			}
+			else
+			{
+				SendJudge(JUDGEOK);
+				DispMsg("Reset_TriggerPos OK!");
+			}
+
+			break;
+
+		case SET_KM_DELAY:
+			SendJudge(JUDGEING);
+			
+			bRtn = m_km->SetDelay();
+						
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"SetVoltage");
+				DispMsg(strMsg);
+			}
+			else
+			{
+				strWMsg.Format("Head%d:%s",nHeadNo," Voltage Upate OK!");
+				SendJudge(JUDGEOK);
+				//DispMsg("Head Voltage Upate OK!");
+				DispMsg(strWMsg);
+			}
+
+			break;
+
+		case SET_KM_FIRETIME:
+
+			SendJudge(JUDGEING);
+
+			bRtn = m_km->SetFireSTime();
+
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"Set WaveForm");
+				DispMsg(strMsg);
+			}
+			else
+			{
+				SendJudge(JUDGEOK);
+				DispMsg("Head WaveForm Upate OK!");
+			}
+
+			break;
+
+		case SET_KM_HEADPARA:
+
+			SendJudge(JUDGEING);
+	
+			bRtn = m_km->SetHeadParameters();
+					
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"Set Active");
+				DispMsg(strMsg);
+			}
+			else
+			{
+				strWMsg.Format("Head%d:%s",nHeadNo," Head Active Upate OK!");
+				SendJudge(JUDGEOK);				
+				DispMsg(strWMsg);
+			}
+
+			break;
+
+		// edit by wonho
+		case SET_KM_IMAGEINFO:
+
+			SendJudge(JUDGEING);
+			
+			bRtn = m_km->SetImageInfo();
+					
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"Error Set Delay");
+				DispMsg(strMsg);
+			}
+			else
+			{
+				strWMsg.Format("Head%d:%s",nHeadNo," Head Delay Upate OK!");
+				SendJudge(JUDGEOK);
+				//DispMsg("Head Active Upate OK!");
+				DispMsg(strWMsg);
+			}
+
+			break;
+
+		// edit by wonho
+		case SET_KM_WAVEFORMPARA:
+
+			SendJudge(JUDGEING);
+
+			bRtn = m_km->SetWaveParameters();
+					
+			bRtn = TRUE;
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"SetSlantOffset");
+				DispMsg(strMsg);
+			}
+			else
+			{
+				SendJudge(JUDGEOK);
+				DispMsg("Head SlantOffset Upate OK!");
+			}
+
+ 			break;
+
+
+			
+		case SET_KM_PRINT:
+
+			SendJudge(JUDGEING);
+			
+			bRtn = m_km->StarPrint();
+			
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"SetVoltage");
+				DispMsg(strMsg);
+				break;
+			}
+			else
+			{
+				DispMsg("Head SlantOffset Update OK!");
+			}		
+
+		default:
+			break;
+	}
+
+	SendMessage(WM_ICON_NOTIFY);
 }

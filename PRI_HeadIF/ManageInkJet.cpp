@@ -355,8 +355,8 @@ BOOL CManageInkJet::Init_BaseBd(char* pRndMsg)
 #ifdef NOTEBOOK
 	m_bOpenInkJet = Bs_Pci_Boot(m_BdPara.cBootPath,1,m_pParent,RUN_MODE_DEBUG_EN | RUN_MODE_LOG_LEVEL_1_EN,m_strMsg); 
 #else
- 	//m_bOpenInkJet = Bs_Pci_Boot(m_BdPara.cBootPath,1,m_pParent,RUN_MODE_NORMAL,m_strMsg); 
-	m_bOpenInkJet = Bs_Pci_Boot(m_BdPara.cBootPath,1,m_pParent,RUN_MODE_NORMAL|RUN_MODE_DATA_SAVE_EN,m_strMsg); 
+ 	m_bOpenInkJet = Bs_Pci_Boot(m_BdPara.cBootPath,1,m_pParent,RUN_MODE_NORMAL,m_strMsg); 
+	//m_bOpenInkJet = Bs_Pci_Boot(m_BdPara.cBootPath,1,m_pParent,RUN_MODE_NORMAL|RUN_MODE_DATA_SAVE_EN,m_strMsg); 
 #endif
 
 	if (m_bOpenInkJet == TRUE)
@@ -382,6 +382,7 @@ BOOL CManageInkJet::Init_BaseBd(char* pRndMsg)
 
 						if(bRtn == TRUE)
 						{
+							// OK!
 						}
 						else
 						{
