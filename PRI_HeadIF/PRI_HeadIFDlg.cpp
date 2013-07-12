@@ -1134,7 +1134,7 @@ void CPRI_HeadIFDlg::OnBtnBoot()
 	{	
 		Execute(EXE_BOOT);		
 	} else {	
-		ExecuteKM(EXE_KM_BOOT);		
+		ExecuteKM(KM_BOOT);		
 	}
 }
 
@@ -1409,7 +1409,7 @@ void CPRI_HeadIFDlg::ExecuteKM(int nCmdNo)
 			SendJudge(JUDGEOK);
 			break;
 		
-		case EXE_KM_BOOT:
+		case KM_BOOT:
 			
 			bRtn = m_km->Initialize();
 
@@ -1427,7 +1427,7 @@ void CPRI_HeadIFDlg::ExecuteKM(int nCmdNo)
 
 			break;
 
-		case EXE_KM_CLOSE:
+		case KM_CLOSE:
 			
 			SendJudge(JUDGEING);
 			
@@ -1447,7 +1447,7 @@ void CPRI_HeadIFDlg::ExecuteKM(int nCmdNo)
 			
 			break;
 
-		case EXE_KM_RESET:
+		case KM_RESET:
 
 			SendJudge(JUDGEING);
 			bRtn = m_km->IJCS_Reset();
@@ -1465,31 +1465,73 @@ void CPRI_HeadIFDlg::ExecuteKM(int nCmdNo)
 			}
 
 			break;
-		
-		case SET_KM_IMAGEDATA:
-			
+
+		case KM_HEADSETUP:
+
 			SendJudge(JUDGEING);
-			
-			bRtn = m_km->SendImageData();
-			
+	
+			bRtn = m_km->HeadSetup();
+					
 			if (bRtn == FALSE)
 			{
 				SendJudge(JUDGENG);
-				SendErrMsg(strMsg,"Error Reset_TriggerPos.");
+				SendErrMsg(strMsg,"Set Active");
+				DispMsg(strMsg);
+			}
+			else
+			{
+				strWMsg.Format("Head%d:%s",nHeadNo," Head Active Upate OK!");
+				SendJudge(JUDGEOK);				
+				DispMsg(strWMsg);
+			}
+
+			break;
+
+		case KM_WAVEFORMSETUP:
+
+			SendJudge(JUDGEING);
+
+			bRtn = m_km->WaveformSetup();
+					
+			bRtn = TRUE;
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"SetSlantOffset");
 				DispMsg(strMsg);
 			}
 			else
 			{
 				SendJudge(JUDGEOK);
-				DispMsg("Reset_TriggerPos OK!");
+				DispMsg("Head SlantOffset Upate OK!");
+			}
+
+ 			break;
+
+		case KM_FIRESETUP:
+
+			SendJudge(JUDGEING);
+
+			bRtn = m_km->FireSetup();
+
+			if (bRtn == FALSE)
+			{
+				SendJudge(JUDGENG);
+				SendErrMsg(strMsg,"Set WaveForm");
+				DispMsg(strMsg);
+			}
+			else
+			{
+				SendJudge(JUDGEOK);
+				DispMsg("Head WaveForm Upate OK!");
 			}
 
 			break;
 
-		case SET_KM_DELAY:
+		case KM_DELAYSETUP:
 			SendJudge(JUDGEING);
 			
-			bRtn = m_km->SetDelay();
+			bRtn = m_km->DelaySetup();
 						
 			if (bRtn == FALSE)
 			{
@@ -1507,53 +1549,50 @@ void CPRI_HeadIFDlg::ExecuteKM(int nCmdNo)
 
 			break;
 
-		case SET_KM_FIRETIME:
+		case KM_TEMPERATURESETUP:
 
 			SendJudge(JUDGEING);
-
-			bRtn = m_km->SetFireSTime();
-
+			
+			bRtn = m_km->TemperatureSetup();
+			
 			if (bRtn == FALSE)
 			{
 				SendJudge(JUDGENG);
-				SendErrMsg(strMsg,"Set WaveForm");
+				SendErrMsg(strMsg,"Error TemperatureSetup.");
 				DispMsg(strMsg);
 			}
 			else
 			{
 				SendJudge(JUDGEOK);
-				DispMsg("Head WaveForm Upate OK!");
+				DispMsg("TemperatureSetup OK!");
 			}
 
 			break;
 
-		case SET_KM_HEADPARA:
+		case KM_FLUSHINGSETUP:
 
 			SendJudge(JUDGEING);
-	
-			bRtn = m_km->SetHeadParameters();
-					
+			
+			bRtn = m_km->FlushingSetup();
+			
 			if (bRtn == FALSE)
 			{
 				SendJudge(JUDGENG);
-				SendErrMsg(strMsg,"Set Active");
+				SendErrMsg(strMsg,"Error FlushingSetup.");
 				DispMsg(strMsg);
 			}
 			else
 			{
-				strWMsg.Format("Head%d:%s",nHeadNo," Head Active Upate OK!");
-				SendJudge(JUDGEOK);				
-				DispMsg(strWMsg);
+				SendJudge(JUDGEOK);
+				DispMsg("FlushingSetup OK!");
 			}
-
 			break;
 
-		// edit by wonho
-		case SET_KM_IMAGEINFO:
+		case KM_IMAGEINFO:
 
 			SendJudge(JUDGEING);
 			
-			bRtn = m_km->SetImageInfo();
+			bRtn = m_km->ImageInfo();
 					
 			if (bRtn == FALSE)
 			{
@@ -1571,31 +1610,27 @@ void CPRI_HeadIFDlg::ExecuteKM(int nCmdNo)
 
 			break;
 
-		// edit by wonho
-		case SET_KM_WAVEFORMPARA:
-
+		case KM_IMAGEDATA:
+			
 			SendJudge(JUDGEING);
-
-			bRtn = m_km->SetWaveParameters();
-					
-			bRtn = TRUE;
+			
+			bRtn = m_km->ImageData();
+			
 			if (bRtn == FALSE)
 			{
 				SendJudge(JUDGENG);
-				SendErrMsg(strMsg,"SetSlantOffset");
+				SendErrMsg(strMsg,"Error Reset_TriggerPos.");
 				DispMsg(strMsg);
 			}
 			else
 			{
 				SendJudge(JUDGEOK);
-				DispMsg("Head SlantOffset Upate OK!");
+				DispMsg("Reset_TriggerPos OK!");
 			}
 
- 			break;
-
-
+			break;
 			
-		case SET_KM_PRINT:
+		case KM_PRINT:
 
 			SendJudge(JUDGEING);
 			

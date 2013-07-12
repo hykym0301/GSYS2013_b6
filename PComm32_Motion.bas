@@ -1998,9 +1998,9 @@ End Function
 Function Set_KMTankMode(ByVal ipMode As KM_TankMode) As Boolean
 On Error GoTo syserr
     If ipMode = Meniscus_KM Then
-        PComm32_DOUT oSg_Cliffer_KM_TankPresMode, 0, PComm32_ClifferID
-    ElseIf ipMode = Purge_KM Then
         PComm32_DOUT oSg_Cliffer_KM_TankPresMode, 1, PComm32_ClifferID
+    ElseIf ipMode = Purge_KM Then
+        PComm32_DOUT oSg_Cliffer_KM_TankPresMode, 0, PComm32_ClifferID
     Else
         Set_KMTankMode = False
         Exit Function

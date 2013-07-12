@@ -178,44 +178,6 @@ BOOL CManageInkJet_KM::Initialize()
 	if (ok==FALSE){
 		return FALSE;
 	}
-	
-	struct ijcs_status km_status;
-	ok = IJCS_GetStatus(0,&km_status,sizeof(km_status));
-	if(ok==FALSE){
-		err = IJCS_GetErrorCode();
-		printf("Error auto Trigger! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_AUTO_TRIGER, err);
-		return FALSE;
-	}
-
-	// Auto trigger repeat
-	struct st_cmd_set_auto_trigger auto_trigger;
-	auto_trigger.repeat = 1;	//0 : 외부 트리거 상승 에지, 1 : 외부 트리거 하강 에지, 2 : 위상 계수 카운터 트리거
-	auto_trigger.interval = 1;		//0 : 원샷, 1 : 자동 트리거 - TBD	
-	ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_AUTO_TRIGER, (BYTE *)&auto_trigger, sizeof(auto_trigger));
-	if(ok==FALSE){
-		err = IJCS_GetErrorCode();
-		printf("Error auto Trigger! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_AUTO_TRIGER, err);
-		return FALSE;
-	}
-
-	struct st_cmd_set_flush_trigger flush_trigger;
-	flush_trigger.trigger = 1;	
-
-	ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_FLUSHING_TRIGER, (BYTE *)&flush_trigger, sizeof(flush_trigger));
-	if(ok==FALSE){
-		err = IJCS_GetErrorCode();
-		printf("Error auto Trigger! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_AUTO_TRIGER, err);
-		return FALSE;
-	}
-
-
-
-
-
-
-
-
-
 
 	//Set scan trigger
 	struct st_trigger_select trigger_sel;
@@ -282,31 +244,31 @@ BOOL CManageInkJet_KM::Initialize()
 	return TRUE;
 }
 
-BOOL CManageInkJet_KM::SetHeadParameters()
+BOOL CManageInkJet_KM::HeadSetup()
 {
 	BOOL ok;
 	DWORD err=0;
-
+	
 	for ( int du = 0; du < DU_MAX; du++ ) {
 		for ( int kmdb = 0; kmdb < KMDB_MAX; kmdb++ ) {
 			//Set head type
 			struct st_cmd_head_type head_type;
 			head_type.dbm_id = du;			//DBM 보드 번호 (0 ~ 3)
 			head_type.kmdb_id = kmdb;		//KMDB 보드 번호 (0 ~ 3)
-			head_type.nozzle_num = 512;		//노즐 총 128,256,512,1024 숫자를 입력하십시오.
+			head_type.nozzle_num = NOZZLES;	//노즐 총 128,256,512,1024 숫자를 입력하십시오.
 			head_type.nozzle_row = 2;		//노즐 열 수 1:1 열 2:2 열을 나타냅니다.
 			head_type.drive_type = 3;		//구동 타입 1 : 독립 구동, 3 : 3 상 구동을 보여줍니다.
-			head_type.kmdb_type = 0;		//1:KMDB-S
+			head_type.kmdb_type = 1;		//1:KMDB-L01A
 
-			/*					  KMDB 종별 0 :  KMDB -S01A(TBD)
-                                            '1:  KMDB -L01A(TBD)
-                                            '2:  KMDB -L02A(TBD)
-                                            '3:  KMDB -D01A(TBD)
-			*/
+											/* KMDB 종별 0 :  KMDB -S01A(TBD)
+														 1 :  KMDB -L01A(TBD)
+														 2 :  KMDB -L02A(TBD)
+														 3 :  KMDB -D01A(TBD)
+											*/
 
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_HEAD_TYPE, (BYTE *)&head_type, sizeof(head_type));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Set Head Type! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_HEAD_TYPE, err);
 				return FALSE;
 			}
@@ -318,14 +280,14 @@ BOOL CManageInkJet_KM::SetHeadParameters()
 			head_use.head_use = 1;			//헤드 사용 0 : 미사용, 1 사용을 보여줍니다.
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_ASSIGN_USE_HEAD, (BYTE *)&head_use, sizeof(head_use));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Assign Use Head! command ID=%x, error=%d\n", IJCS1_COMMAND_ASSIGN_USE_HEAD, err);
 				return FALSE;
 			}
 
 			// Set STB
 			struct st_cmd_stb_order stb;
-			stb.dbm_id = du;			//DBM 보드 번호 (0 ~ 3)
+			stb.dbm_id = du;			//DBM 보드 번호  (0 ~ 3)
 			stb.kmdb_id = kmdb;			//KMDB 보드 번호 (0 ~ 3)
 
 			stb.l_for[0] = 0;			// L 열 출국 1 ~ 3 단계 선택 0 : A 상 1 : B 상 2 : C 상
@@ -343,7 +305,7 @@ BOOL CManageInkJet_KM::SetHeadParameters()
 
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_STB_ORDER, (BYTE *)&stb, sizeof(stb));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Assign Use Head! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_STB_ORDER, err);
 				return FALSE;
 			}
@@ -354,7 +316,7 @@ BOOL CManageInkJet_KM::SetHeadParameters()
 	return TRUE;
 }
 
-BOOL CManageInkJet_KM::SetWaveParameters()
+BOOL CManageInkJet_KM::WaveformSetup()
 {
 	BOOL ok;
 	DWORD err=0;
@@ -387,7 +349,7 @@ BOOL CManageInkJet_KM::SetWaveParameters()
 			base_wave.droplet_time = 12000;	// droplet-time을 1nsec 단위로 설정. ex) 10.0usec = 0x2710
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_BASE_WAVE, (BYTE *)&base_wave, sizeof(base_wave));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Set Base Wave! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_BASE_WAVE, err);
 				return FALSE;
 			}
@@ -423,7 +385,7 @@ BOOL CManageInkJet_KM::SetWaveParameters()
 			drive_wave.img7_num = 0;		//이미지 데이터 7시 파형 종료 위치를 지정합니다.
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_DRIVE_WAVE, (BYTE *)&drive_wave, sizeof(drive_wave));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Set Drive Wave! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_DRIVE_WAVE, err);
 				return FALSE;
 			}
@@ -452,18 +414,17 @@ BOOL CManageInkJet_KM::SetWaveParameters()
 			head_voltage.head_off[7] = 0;		//
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_HEAD_VOLT, (BYTE *)&head_voltage, sizeof(head_voltage));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Set Head Volt! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_HEAD_VOLT, err);
 				return FALSE;
 			}
-
 		}
 	}
 
 	return TRUE;
 }
 
-BOOL CManageInkJet_KM::SetFireSTime()
+BOOL CManageInkJet_KM::FireSetup()
 {
 	BOOL ok;
 	DWORD err=0;
@@ -479,7 +440,7 @@ BOOL CManageInkJet_KM::SetFireSTime()
 			fire_encoder.divider = 1;			//분주 n = 1 to 1023 divide
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_FIRE_ENCODER, (BYTE *)&fire_encoder, sizeof(fire_encoder));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Set Fire Divide & Multiply! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_FIRE_ENCODER, err);
 				return FALSE;
 			}
@@ -491,7 +452,7 @@ BOOL CManageInkJet_KM::SetFireSTime()
 			stime_type.type = 0;				//s 시간 유형 지정
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_FIRE_STIME_TYPE, (BYTE *)&stime_type, sizeof(stime_type));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Set Stime Type! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_FIRE_STIME_TYPE, err);
 				return FALSE;
 			}
@@ -503,7 +464,7 @@ BOOL CManageInkJet_KM::SetFireSTime()
 			stime_fixvalue.time = 100000;		//s 시간 고정 값
 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_FIRE_STIME_FIXVALUE, (BYTE *)&stime_fixvalue, sizeof(stime_fixvalue));
 			if(ok==FALSE){
-				//err = IJCS_GetErrorCode();
+				err = IJCS_GetErrorCode();
 				printf("Error Set S Time Fix Value! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_FIRE_STIME_FIXVALUE, err);
 				return FALSE;
 			}
@@ -514,7 +475,7 @@ BOOL CManageInkJet_KM::SetFireSTime()
 	return TRUE;
 }
 
-BOOL CManageInkJet_KM::SetDelay()
+BOOL CManageInkJet_KM::DelaySetup()
 {
 	BOOL ok;
 	DWORD err=0;
@@ -602,7 +563,91 @@ BOOL CManageInkJet_KM::SetDelay()
 	return TRUE;
 }
 
-BOOL CManageInkJet_KM::SetImageInfo()
+BOOL CManageInkJet_KM::TemperatureSetup()
+{
+	BOOL ok=FALSE;
+	DWORD err=0;
+// 
+// 	// print start (page memory clear  print environment initialize
+// 	struct st_cmd_print_start print_start;
+// 
+// 	print_start.reserved = 0;
+// 	ok = IJCS_SendCommand(0, IJCS1_COMMAND_PRINT_START, (BYTE *)&print_start, sizeof(print_start));
+// 	if(ok==FALSE){
+// 		//err = IJCS_GetErrorCode();
+// 		printf("Error Print Abort! command ID=%x, error=%d\n", IJCS1_COMMAND_PRINT_START, err);
+// 		return FALSE;
+// 	}
+// 
+// 	for ( int du = 0; du < DU_MAX; du++ ) {
+// 		for ( int kmdb = 0; kmdb < KMDB_MAX; kmdb++ ) {
+// 
+// 			//Set image information
+// 			struct st_cmd_image_info image_info;
+// 			image_info.dbm_id = du;			//DBM 보드 번호 (0 ~ 3)
+// 			image_info.kmdb_id = kmdb;		//KMDB 보드 번호 (0 ~ 3)
+// #if (LEVEL==4)
+// 			image_info.depth = 2;			//메모리 깊이 이미지의 메모리 깊이 깊이를 지정합니다. 이미지의 Bit 수를 지정합니다. 1,2,4을 지정하십시오.
+// #else
+// 			image_info.depth = 1;			//메모리 깊이 이미지의 메모리 깊이 깊이를 지정합니다. 이미지의 Bit 수를 지정합니다. 1,2,4을 지정하십시오.
+// #endif
+// 			image_info.length = 2106;		//이미지 길이 이미지의 길이를 지정합니다.	
+// 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_IMAGE_INFO, (BYTE *)&image_info, sizeof(image_info));
+// 			if(ok==FALSE){
+// 				//err = IJCS_GetErrorCode();
+// 				printf("Error Set Image Information! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_IMAGE_INFO, err);
+// 				return FALSE;
+// 			}
+// 
+// 		}
+// 	}
+
+	return TRUE;
+}
+
+BOOL CManageInkJet_KM::FlushingSetup()
+{
+	BOOL ok=FALSE;
+	DWORD err=0;
+// 
+// 	// print start (page memory clear  print environment initialize
+// 	struct st_cmd_print_start print_start;
+// 
+// 	print_start.reserved = 0;
+// 	ok = IJCS_SendCommand(0, IJCS1_COMMAND_PRINT_START, (BYTE *)&print_start, sizeof(print_start));
+// 	if(ok==FALSE){
+// 		//err = IJCS_GetErrorCode();
+// 		printf("Error Print Abort! command ID=%x, error=%d\n", IJCS1_COMMAND_PRINT_START, err);
+// 		return FALSE;
+// 	}
+// 
+// 	for ( int du = 0; du < DU_MAX; du++ ) {
+// 		for ( int kmdb = 0; kmdb < KMDB_MAX; kmdb++ ) {
+// 
+// 			//Set image information
+// 			struct st_cmd_image_info image_info;
+// 			image_info.dbm_id = du;			//DBM 보드 번호 (0 ~ 3)
+// 			image_info.kmdb_id = kmdb;		//KMDB 보드 번호 (0 ~ 3)
+// #if (LEVEL==4)
+// 			image_info.depth = 2;			//메모리 깊이 이미지의 메모리 깊이 깊이를 지정합니다. 이미지의 Bit 수를 지정합니다. 1,2,4을 지정하십시오.
+// #else
+// 			image_info.depth = 1;			//메모리 깊이 이미지의 메모리 깊이 깊이를 지정합니다. 이미지의 Bit 수를 지정합니다. 1,2,4을 지정하십시오.
+// #endif
+// 			image_info.length = 2106;		//이미지 길이 이미지의 길이를 지정합니다.	
+// 			ok = IJCS_SendCommand(0, IJCS1_COMMAND_SET_IMAGE_INFO, (BYTE *)&image_info, sizeof(image_info));
+// 			if(ok==FALSE){
+// 				//err = IJCS_GetErrorCode();
+// 				printf("Error Set Image Information! command ID=%x, error=%d\n", IJCS1_COMMAND_SET_IMAGE_INFO, err);
+// 				return FALSE;
+// 			}
+// 
+// 		}
+// 	}
+
+	return TRUE;
+}
+
+BOOL CManageInkJet_KM::ImageInfo()
 {
 	BOOL ok;
 	DWORD err=0;
@@ -644,7 +689,7 @@ BOOL CManageInkJet_KM::SetImageInfo()
 	return TRUE;
 }
 
-BOOL CManageInkJet_KM::SendImageData()
+BOOL CManageInkJet_KM::ImageData()
 {
 	BOOL ok=TRUE;
 	DWORD err=0;
@@ -704,7 +749,7 @@ BOOL CManageInkJet_KM::StarPrint()
 	manual_trigger.reserved = 0;			//reserve
 	ok = IJCS_SendCommand(0, IJCS1_COMMAND_GENERATE_TRIGGER, (BYTE *)&manual_trigger, sizeof(manual_trigger));
 	if(ok==FALSE){
-		//err = IJCS_GetErrorCode();
+		err = IJCS_GetErrorCode();
 		printf("Error Genarate Soft Trigger! command ID=%x, error=%d\n", IJCS1_COMMAND_GENERATE_TRIGGER, err);
 		return FALSE;
 	}
@@ -1155,3 +1200,30 @@ BOOL CManageInkJet_KM::GetImageData(FILE *fp,BYTE* buf,int size,BOOL back)
 	free(image);
 	return TRUE;
 }
+
+BOOL CManageInkJet_KM::GetStatus(int in_mmb)
+{	
+	BOOL ok=FALSE;
+	DWORD err=0;
+	struct ijcs_status km_status;
+	ok = IJCS_GetStatus(0,&km_status,sizeof(km_status));
+	if(ok==FALSE){
+		err = IJCS_GetErrorCode();
+		printf("Error Status read! command ID=%x, error=%d\n", 0, err);
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+// BOOL CManageInkJet_KM::DummyForCommunication(int in_mmb)
+// {	
+// 	BOOL ok=FALSE;
+// 	struct st_cmd_dummy dummy;
+// 	
+// 	dummy.reserved = 0;
+// 
+// 	ok = IJCS_SendCommand(in_mmb, IJCS1_COMMAND_DUMY, (BYTE *)&dummy, sizeof(dummy));
+// 	return ok;
+// }
+

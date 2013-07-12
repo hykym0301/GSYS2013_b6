@@ -10,9 +10,9 @@
 #endif // _MSC_VER > 1000
 
 #define DU_MAX				(1)		// Drive Unit Max
-#define	KMDB_MAX			(4)		// KMDB Max
+#define	KMDB_MAX			(2)		// KMDB Max
 
-#define NOZZLES				(1024) //512
+#define NOZZLES				(1024)	//512
 
 #define IMAGE_COUNT			(8)		//image num
 #define HEADS				(4)		//heads
@@ -74,6 +74,7 @@ class CManageInkJet_KM
 
 
 public:
+	BOOL DummyForCommunication();
 	CManageInkJet_KM();
 	virtual ~CManageInkJet_KM();
 
@@ -83,13 +84,18 @@ public:
 
 // Function
 	BOOL Initialize();//-
-	BOOL SetHeadParameters();
-	BOOL SetWaveParameters();
-	BOOL SetFireSTime();
-	BOOL SetDelay();
-	BOOL SetImageInfo();
-	BOOL SendImageData();
+	BOOL HeadSetup();
+	BOOL WaveformSetup();
+	BOOL FireSetup();
+	BOOL DelaySetup();
+	BOOL TemperatureSetup();
+	BOOL FlushingSetup();
+
+	BOOL ImageInfo();
+	BOOL ImageData();
 	BOOL StarPrint();
+
+	BOOL GetStatus(int in_mmb);
 
 	BOOL ImageReadAndSend(int memory_size, int line_bytes, int height);
 

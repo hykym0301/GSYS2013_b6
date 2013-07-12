@@ -27,7 +27,6 @@ Begin VB.Form frmRunning_KM
       _ExtentY        =   10610
       _Version        =   393216
       Tabs            =   5
-      Tab             =   4
       TabsPerRow      =   7
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -41,16 +40,25 @@ Begin VB.Form frmRunning_KM
       EndProperty
       TabCaption(0)   =   "Printing 설정 && Print"
       TabPicture(0)   =   "frmRunning_KM.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Frame24"
-      Tab(0).Control(1)=   "Frame34"
-      Tab(0).Control(2)=   "framePrintPosition"
-      Tab(0).Control(3)=   "Frame19"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "SSPanel2"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Frame3"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Frame7"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Frame14"
+      Tab(0).Control(3).Enabled=   0   'False
       Tab(0).Control(4)=   "cmdHeadSetup"
-      Tab(0).Control(5)=   "Frame14"
-      Tab(0).Control(6)=   "Frame7"
-      Tab(0).Control(7)=   "Frame3"
-      Tab(0).Control(8)=   "SSPanel2"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "Frame19"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "framePrintPosition"
+      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(7)=   "Frame34"
+      Tab(0).Control(7).Enabled=   0   'False
+      Tab(0).Control(8)=   "Frame24"
+      Tab(0).Control(8).Enabled=   0   'False
       Tab(0).ControlCount=   9
       TabCaption(1)   =   "Offset 관련 Teaching"
       TabPicture(1)   =   "frmRunning_KM.frx":001C
@@ -66,11 +74,9 @@ Begin VB.Form frmRunning_KM
       Tab(3).ControlCount=   0
       TabCaption(4)   =   "Dev"
       TabPicture(4)   =   "frmRunning_KM.frx":0070
-      Tab(4).ControlEnabled=   -1  'True
-      Tab(4).Control(0)=   "Frame1"
-      Tab(4).Control(0).Enabled=   0   'False
-      Tab(4).Control(1)=   "Frame2"
-      Tab(4).Control(1).Enabled=   0   'False
+      Tab(4).ControlEnabled=   0   'False
+      Tab(4).Control(0)=   "Frame2"
+      Tab(4).Control(1)=   "Frame1"
       Tab(4).ControlCount=   2
       Begin VB.Frame Frame2 
          Caption         =   "I/O"
@@ -84,7 +90,7 @@ Begin VB.Form frmRunning_KM
             Strikethrough   =   0   'False
          EndProperty
          Height          =   3090
-         Left            =   195
+         Left            =   -74805
          TabIndex        =   59
          Top             =   2640
          Width           =   5250
@@ -363,7 +369,7 @@ Begin VB.Form frmRunning_KM
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1830
-         Left            =   255
+         Left            =   -74745
          TabIndex        =   56
          Top             =   750
          Width           =   5205
@@ -400,7 +406,7 @@ Begin VB.Form frmRunning_KM
          EndProperty
          ForeColor       =   &H00008000&
          Height          =   915
-         Left            =   -74820
+         Left            =   180
          TabIndex        =   53
          Top             =   3225
          Width           =   3600
@@ -452,7 +458,7 @@ Begin VB.Form frmRunning_KM
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1590
-         Left            =   -74820
+         Left            =   180
          TabIndex        =   35
          Top             =   4245
          Width           =   11880
@@ -772,7 +778,7 @@ Begin VB.Form frmRunning_KM
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1215
-         Left            =   -68805
+         Left            =   6195
          TabIndex        =   24
          Top             =   2940
          Width           =   5865
@@ -939,7 +945,7 @@ Begin VB.Form frmRunning_KM
             Strikethrough   =   0   'False
          EndProperty
          Height          =   915
-         Left            =   -71115
+         Left            =   3885
          TabIndex        =   21
          Top             =   3225
          Width           =   2205
@@ -965,7 +971,7 @@ Begin VB.Form frmRunning_KM
       Begin VB.CommandButton cmdHeadSetup 
          Caption         =   "Head Setup"
          Height          =   765
-         Left            =   -74310
+         Left            =   690
          TabIndex        =   20
          Top             =   1125
          Width           =   1545
@@ -981,7 +987,7 @@ Begin VB.Form frmRunning_KM
             Strikethrough   =   0   'False
          EndProperty
          Height          =   2550
-         Left            =   -62775
+         Left            =   12225
          TabIndex        =   7
          Top             =   465
          Width           =   4755
@@ -1212,7 +1218,7 @@ Begin VB.Form frmRunning_KM
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1605
-         Left            =   -62775
+         Left            =   12225
          TabIndex        =   5
          Top             =   3075
          Width           =   4755
@@ -1237,7 +1243,7 @@ Begin VB.Form frmRunning_KM
       End
       Begin VB.Frame Frame3 
          Height          =   1155
-         Left            =   -62775
+         Left            =   12225
          TabIndex        =   1
          Top             =   4680
          Width           =   4755
@@ -1295,7 +1301,7 @@ Begin VB.Form frmRunning_KM
       End
       Begin Threed.SSPanel SSPanel2 
          Height          =   270
-         Left            =   -70005
+         Left            =   4995
          TabIndex        =   23
          Top             =   4275
          Width           =   3720
@@ -1421,6 +1427,15 @@ On Error GoTo syserr
     End Select
 
     
+Exit Sub
+syserr:
+    MsgBox Err.Description
+End Sub
+
+Private Sub cmdHeadSetup_Click()
+On Error GoTo syserr
+    'Shell "C:\Program Files\KONICAMINOLTA\KONICAMINOLTAIJ\IJCS1\IJCS-1.exe"
+    'Shell "D:\LHJ_Work\PI_Alpha_Sys\MainUI\IJCS1\IJCS-1.exe"
 Exit Sub
 syserr:
     MsgBox Err.Description

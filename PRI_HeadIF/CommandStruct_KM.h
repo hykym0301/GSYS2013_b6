@@ -22,6 +22,7 @@ enum command{
 	IJCS1_COMMAND_SET_HEAD_TEMP=0x60,				//0x60	//긶긞긤돴뱗먠믦
 	IJCS1_COMMAND_SELECT_FIRE=0x70,					//0x70	//긲?귽귺멗묖
 	IJCS1_COMMAND_SET_FTIME,						//0x71	//볙븫뵯륶뢂딖먠믦
+	IJCS1_COMMAND_SET_23PIN_OUTPUT,					//0x72  // 2013.07.11 - khy추가: 23pin 어떤 열의 것을 사용할지 선택.
 	IJCS1_COMMAND_SET_ENCODER_ADJUST=0x80,			//0x80	//긄깛긓???뺚맫맕뚥먠믦
 	IJCS1_COMMAND_SET_ENCODER_ADJUST_LUT,			//0x81	//긄깛긓???뺚맫맕뚥굂굏굎먠믦
 	IJCS1_COMMAND_SELECT_Z_PHASE,					//0x82	//긄깛긓???굖몜럚믦

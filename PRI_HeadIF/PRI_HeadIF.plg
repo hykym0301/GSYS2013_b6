@@ -6,13 +6,18 @@
 --------------------Configuration: PRI_HeadIF - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26B.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP425.tmp" with contents
 [
 /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\InkJet\InkJet_Base.h" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/PRI_HeadIF.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\LHJ_Work\PI_Alpha_Sys\MainUI\PRI_HeadIF\Manage_Img.cpp"
+"D:\LHJ_Work\PI_Alpha_Sys\MainUI\PRI_HeadIF\Manage_Reg.cpp"
+"D:\LHJ_Work\PI_Alpha_Sys\MainUI\PRI_HeadIF\ManageInkJet.cpp"
 "D:\LHJ_Work\PI_Alpha_Sys\MainUI\PRI_HeadIF\ManageInkJet_KM.cpp"
+"D:\LHJ_Work\PI_Alpha_Sys\MainUI\PRI_HeadIF\PRI_HeadIF.cpp"
+"D:\LHJ_Work\PI_Alpha_Sys\MainUI\PRI_HeadIF\PRI_HeadIFDlg.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26B.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26C.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP425.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP426.tmp" with contents
 [
 InkJet_Dll.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/PRI_HeadIF.pdb" /debug /machine:I386 /out:"Debug/PRI_HeadIF.exe" /pdbtype:sept /libpath:".\InkJet" 
 .\Debug\Manage_File.obj
@@ -26,12 +31,19 @@ InkJet_Dll.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/PRI_HeadI
 .\Debug\SystemTray.obj
 .\Debug\PRI_HeadIF.res
 ]
-Creating command line "link.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26C.tmp"
+Creating command line "link.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP426.tmp"
 <h3>Output Window</h3>
 Compiling...
 ManageInkJet_KM.cpp
+Generating Code...
+Skipping... (no relevant changes detected)
+Manage_Img.cpp
+Manage_Reg.cpp
+ManageInkJet.cpp
+PRI_HeadIF.cpp
+PRI_HeadIFDlg.cpp
 Linking...
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26D.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP427.tmp" with contents
 [
 /nologo /o"Debug/PRI_HeadIF.bsc" 
 .\Debug\StdAfx.sbr
@@ -43,7 +55,7 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26D.tmp" with conten
 .\Debug\PRI_HeadIF.sbr
 .\Debug\PRI_HeadIFDlg.sbr
 .\Debug\SystemTray.sbr]
-Creating command line "bscmake.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP26D.tmp"
+Creating command line "bscmake.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP427.tmp"
 Creating browse info file...
 <h3>Output Window</h3>
 
